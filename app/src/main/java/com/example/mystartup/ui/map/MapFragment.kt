@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mystartup.R
 import com.google.android.gms.maps.*
@@ -11,20 +13,28 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapFragment :Fragment(),OnMapReadyCallback{
-    lateinit var mMap:GoogleMap
-    lateinit var mapView:MapView
+class MapFragment : Fragment(), OnMapReadyCallback {
+    lateinit var mMap: GoogleMap
+    lateinit var mapView: MapView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.google_map,container,false)
-        mapView=view.findViewById(R.id.google_map_view)as MapView
+        val view = inflater.inflate(R.layout.google_map, container, false)
+        mapView = view.findViewById(R.id.google_map_view) as MapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val hideShowBtn = view.findViewById<Button>(R.id.hide_map_show)
+        hideShowBtn.setOnClickListener {
+            Toast.makeText(context, "CLICK", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onMapReady(p0: GoogleMap?) {
