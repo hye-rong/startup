@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1094986029526",
+    "firebase_url": "https://contest-284608.firebaseio.com",
+    "project_id": "contest-284608",
+    "storage_bucket": "contest-284608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094986029526:android:53681e8e7a3bee6c7cec77",
+        "android_client_info": {
+          "package_name": "com.example.mystartup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094986029526-6ths8gman9u0iv3rskgove4r7kv33mk6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACIYniMoPVpAvIY4cLzAF3KRNbZb6GgxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094986029526-6ths8gman9u0iv3rskgove4r7kv33mk6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
