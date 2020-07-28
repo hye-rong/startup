@@ -39,7 +39,7 @@ class CafeRecyclerAdapter(
     @SuppressLint("CheckResult")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(cafeActivity)
-            .load(list.get(position).cafeDistrict)
+            .load(list.get(position).cafeURL)
             .fitCenter()
             .into(holder.cafeImage)
         holder.cafeName.setText( list.get(position).cafeName )
