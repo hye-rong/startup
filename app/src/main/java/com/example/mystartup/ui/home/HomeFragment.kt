@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mystartup.MainActivity
 import com.example.mystartup.R
+import com.example.mystartup.ui.job.JobActivity
 import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.cafe_list.*
@@ -38,10 +39,13 @@ class HomeFragment(val mainActivity: MainActivity) : Fragment() {
             intent = Intent(mainActivity, CafeActivity::class.java)
             startActivity(intent)
         }
+        job_info.setOnClickListener {
+            intent=Intent(mainActivity, JobActivity::class.java)
+            startActivity(intent)
+        }
         /*edu_info.setOnClickListener { intent=Intent(mainActivity,"class이름")
         startActivity(intent)}
-        cafe_info.setOnClickListener { intent=Intent(mainActivity,"class이름")
-            startActivity(intent) }
+
         fund_info.setOnClickListener { intent=Intent(mainActivity,"class이름")
             startActivity(intent) }
 */
