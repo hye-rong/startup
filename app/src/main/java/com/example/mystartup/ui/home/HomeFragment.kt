@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.mystartup.R
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    lateinit var pageAdapter:HomePageAdapter
+    lateinit var infoList:ArrayList<StartupInfo>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,4 +25,42 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        home_tab_layout.addTab(home_tab_layout.newTab())
+        home_tab_layout.addTab(home_tab_layout.newTab())
+        home_tab_layout.addTab(home_tab_layout.newTab())
+        home_tab_layout.addTab(home_tab_layout.newTab())
+        home_tab_layout.addTab(home_tab_layout.newTab())
+        //ArrayList받아오기
+        infoList = ArrayList<StartupInfo>()
+        for(i in 0 until 5){
+            infoList.add(StartupInfo("title"+(i+1), "창업 정보가 출력됩니다."))
+        }
+        pageAdapter = HomePageAdapter(
+            LayoutInflater.from(context),
+            infoList
+        )
+        home_view_pager.adapter = pageAdapter
+        home_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tab_layout))
+
+        home_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                home_view_pager.currentItem = tab!!.position
+            }
+        })
+        home_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tab_layout))
+    }
+}
+class StartupInfo(var title:String, var msg:String){
+
 }
