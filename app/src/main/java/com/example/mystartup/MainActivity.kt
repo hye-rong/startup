@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.mystartup.ui.favorite.FavoriteFragment
 import com.example.mystartup.ui.home.HomeFragment
+import com.example.mystartup.ui.job.JobAsynctask
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,14 +18,17 @@ class MainActivity : AppCompatActivity() {
     lateinit var ft:FragmentTransaction
     lateinit var fm: FragmentManager
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
 
+
     }
 
     private fun init() {
+
         //fragment 생성
         homeFragment = HomeFragment(this@MainActivity)
         favoriteFragment = FavoriteFragment()

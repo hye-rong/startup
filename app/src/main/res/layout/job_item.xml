@@ -43,14 +43,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="근무지 주소"
-                android:textSize="10dp"
+                android:textSize="15dp"
                 android:layout_marginRight="10dp"/>
             <TextView
                 android:id="@+id/job_career"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="경력"
-                android:textSize="10dp"/>
+                android:textSize="15dp"/>
         </LinearLayout>
     </LinearLayout>
 

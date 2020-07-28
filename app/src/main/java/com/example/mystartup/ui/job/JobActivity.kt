@@ -17,9 +17,13 @@ class JobActivity : AppCompatActivity() {
     lateinit var jobList:ArrayList<JobInfoForList>
     lateinit var adapter:RecyclerViewAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job)
+
+
+
         //jobList 생성
         jobList = ArrayList<JobInfoForList>()
         for(i in 0 until 100){
@@ -35,7 +39,6 @@ class JobActivity : AppCompatActivity() {
         jod_find_enter.setOnClickListener {
             job_edit.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
         }
-
         job_edit.setOnEditorActionListener { v, actionId, event ->
             when(actionId){
                 EditorInfo.IME_ACTION_SEARCH -> {
@@ -62,8 +65,12 @@ class JobActivity : AppCompatActivity() {
                 }
             }
         }
+        val asyncTask = JobAsynctask()
+        asyncTask.execute()
 
     }
+
+
     fun CloseKeyboard()
     {
         var view = this.currentFocus
