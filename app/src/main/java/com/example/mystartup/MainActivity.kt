@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         //fragment 생성
-        homeFragment = HomeFragment()
+        homeFragment = HomeFragment(this@MainActivity)
         favoriteFragment = FavoriteFragment()
 
         //fragment manager
