@@ -3,6 +3,7 @@ package com.example.mystartup.ui.map
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -30,6 +31,11 @@ class CafeActivity : AppCompatActivity() {
         val listAndDetailFragment = ListAndDetailFragment(this)
         fragmentManager.beginTransaction()
             .replace(R.id.list_detail_fragment, listAndDetailFragment).commit()
+
+        val cafeAsyncTask = CafeAsyncTask(this@CafeActivity)
+        cafeAsyncTask.execute()
+        Log.d("request","tt")
+
 
     }
 
