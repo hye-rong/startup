@@ -14,28 +14,21 @@ import com.example.mystartup.R
 import kotlinx.android.synthetic.main.activity_job.*
 
 class JobActivity : AppCompatActivity() {
-    lateinit var jobList:ArrayList<JobInfoForList>
-    lateinit var adapter:RecyclerViewAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_job)
-        //jobList 생성
-        jobList = ArrayList<JobInfoForList>()
-        for(i in 0 until 100){
-            jobList.add(JobInfoForList("회사" + i + "의 이름",
-                "회사소개", "급여 조건" , "경기도 과천시","경력 조건"))
-        }
 
-        adapter = RecyclerViewAdapter(jobList, LayoutInflater.from(this@JobActivity))
-        job_recyclerview.adapter = adapter
-        job_recyclerview.layoutManager = LinearLayoutManager(this@JobActivity)
+        val asyncTask = JobAsynctask(this@JobActivity)
+        asyncTask.execute()
+
 
         //검색버튼
         jod_find_enter.setOnClickListener {
             job_edit.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
         }
-
         job_edit.setOnEditorActionListener { v, actionId, event ->
             when(actionId){
                 EditorInfo.IME_ACTION_SEARCH -> {
@@ -63,7 +56,10 @@ class JobActivity : AppCompatActivity() {
             }
         }
 
+
     }
+
+
     fun CloseKeyboard()
     {
         var view = this.currentFocus
