@@ -1,37 +1,32 @@
 package com.example.mystartup.ui.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.mystartup.MainActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.mystartup.R
 import com.example.mystartup.ui.job.JobActivity
 import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.cafe_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
+class HomeFragment : Fragment() {
 
-class HomeFragment(val mainActivity: MainActivity) : Fragment() {
-
-    lateinit var pageAdapter: HomePageAdapter
-    lateinit var infoList: ArrayList<StartupInfo>
-    lateinit var root: View
-    lateinit var intent: Intent
+    lateinit var pageAdapter:HomePageAdapter
+    lateinit var infoList:ArrayList<StartupInfo>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,7 +46,6 @@ class HomeFragment(val mainActivity: MainActivity) : Fragment() {
 */
 
 
-
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
@@ -59,21 +53,17 @@ class HomeFragment(val mainActivity: MainActivity) : Fragment() {
         home_tab_layout.addTab(home_tab_layout.newTab())
         //ArrayList받아오기
         infoList = ArrayList<StartupInfo>()
-        for (i in 0 until 5) {
-            infoList.add(StartupInfo("title" + (i + 1), "창업 정보가 출력됩니다."))
+        for(i in 0 until 5){
+            infoList.add(StartupInfo("title"+(i+1), "창업 정보가 출력됩니다."))
         }
         pageAdapter = HomePageAdapter(
             LayoutInflater.from(context),
             infoList
         )
         home_view_pager.adapter = pageAdapter
-        home_view_pager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(
-                home_tab_layout
-            )
-        )
+        home_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tab_layout))
 
-        home_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        home_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
@@ -86,16 +76,9 @@ class HomeFragment(val mainActivity: MainActivity) : Fragment() {
                 home_view_pager.currentItem = tab!!.position
             }
         })
-        home_view_pager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(
-                home_tab_layout
-            )
-        )
+        home_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tab_layout))
     }
-
-
 }
-
-class StartupInfo(var title: String, var msg: String) {
+class StartupInfo(var title:String, var msg:String){
 
 }
