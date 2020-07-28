@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.mystartup.R
+import com.example.mystartup.ui.job.JobActivity
+import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -27,6 +29,22 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        space_info.setOnClickListener {
+            intent = Intent(mainActivity, CafeActivity::class.java)
+            startActivity(intent)
+        }
+        job_info.setOnClickListener {
+            intent=Intent(mainActivity, JobActivity::class.java)
+            startActivity(intent)
+        }
+        /*edu_info.setOnClickListener { intent=Intent(mainActivity,"class이름")
+        startActivity(intent)}
+
+        fund_info.setOnClickListener { intent=Intent(mainActivity,"class이름")
+            startActivity(intent) }
+*/
+
 
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
