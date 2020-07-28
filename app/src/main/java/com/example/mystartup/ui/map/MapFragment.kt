@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.mystartup.R
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -31,10 +32,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val hideShowBtn = view.findViewById<Button>(R.id.hide_map_show)
+        /*val hideShowBtn = view.findViewById<Button>(R.id.hide_map_show)
         hideShowBtn.setOnClickListener {
             Toast.makeText(context, "CLICK", Toast.LENGTH_SHORT).show()
-        }
+
+        }*/
     }
 
     override fun onMapReady(p0: GoogleMap?) {

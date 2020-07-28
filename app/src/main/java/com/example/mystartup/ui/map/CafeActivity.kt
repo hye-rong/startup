@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Layout
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mystartup.R
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,30 +21,16 @@ class CafeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cafe)
-        
+
         val mapFragment = MapFragment()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.map_fragment, mapFragment)
-        fragmentTransaction.commit()
+        fragmentTransaction.replace(R.id.map_fragment, mapFragment).commit()
 
-        val cafeList = ArrayList<CafeInfo>()
-        for (i in 0 until 20)
-            cafeList.add(
-                CafeInfo(
-                    "http://job.seoul.go.kr/www/common/img.jsp?dir=jobcafe&name=MIN_0559_1.jpg"
-                    , "CAFE" + i
-                    , "info info info" + i
-                    , "강서구" + i
-                )
-            )
+        val listAndDetailFragment = ListAndDetailFragment(this)
+        fragmentManager.beginTransaction()
+            .replace(R.id.list_detail_fragment, listAndDetailFragment).commit()
 
-        cafe_recycler_view.adapter = CafeRecyclerAdapter(
-            this@CafeActivity,
-            LayoutInflater.from(this@CafeActivity),
-            cafeList
-        )
-        cafe_recycler_view.layoutManager = LinearLayoutManager(this@CafeActivity)
     }
 
 }
