@@ -21,6 +21,7 @@ class CafeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cafe)
 
+        val i=0
         val mapFragment = MapFragment()
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
