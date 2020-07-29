@@ -12,13 +12,15 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.job.JobActivity"></activity>
+        <activity android:name=".ui.job.JobActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
 
-        <activity android:name=".ui.map.CafeActivity" />
+        <activity android:name=".ui.map.CafeActivity" >
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main">

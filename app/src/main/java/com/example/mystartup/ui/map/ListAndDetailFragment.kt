@@ -24,7 +24,7 @@ class ListAndDetailFragment(val cafeActivity: CafeActivity) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cafeList = ArrayList<CafeInfo>()
+        /*val cafeList = ArrayList<CafeInfo>()
         for (i in 0 until 20)
             cafeList.add(
                 CafeInfo(
@@ -41,7 +41,7 @@ class ListAndDetailFragment(val cafeActivity: CafeActivity) : Fragment() {
                 cafeList
             )
             this.layoutManager = LinearLayoutManager(cafeActivity)
-        }
+        }*/
 
 
 
