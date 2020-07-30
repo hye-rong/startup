@@ -46,10 +46,10 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.jobName.setText(itemList.get(position).name)
-        holder.jobInfo.setText(itemList.get(position).info)
-        holder.jobMoney.setText(itemList.get(position).money)
-        holder.jobPlace.setText(itemList.get(position).place)
-        holder.jobCareer.setText(itemList.get(position).career)
+        holder.jobName.setText(itemList.get(position).CMPNY_NM)
+        holder.jobInfo.setText(itemList.get(position).BSNS_SUMRY_CN)
+        holder.jobMoney.setText(itemList.get(position).HOPE_WAGE)
+        holder.jobPlace.setText(itemList.get(position).WORK_PARAR_BASS_ADRES_CN)
+        holder.jobCareer.setText(itemList.get(position).CAREER_CND_NM)
     }
 }

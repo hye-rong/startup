@@ -73,6 +73,36 @@ class JobActivity : AppCompatActivity() {
 
 
     class JobInfoForList(
-        var name:String, var info:String, var money:String,
-        var place:String, var career:String) {}
+        var JO_REGIST_NO:String,
+        var CMPNY_NM:String,
+        var BSNS_SUMRY_CN :String,
+        var RCRIT_JSSFC_CMMN_CODE_SE:String,
+        var JOBCODE_NM:String,
+        var RCRIT_NMPR_CO:Int,
+        var ACDMCR_CMMN_CODE_SE:String,
+        var ACDMCR_NM:String,
+        var EMPLYM_STLE_CMMN_CODE_SE:String,
+        var EMPLYM_STLE_CMMN_MM:String,
+        var WORK_PARAR_BASS_ADRES_CN:String,
+        var SUBWAY_NM:String,
+        var DTY_CN:String,
+        var CAREER_CND_CMMN_CODE_SE:String,
+        var CAREER_CND_NM:String,
+        var HOPE_WAGE:String,
+        var RET_GRANTS_NM:String,
+        var WORK_TIME_NM:String,
+        var WORK_TM_NM:String,
+        var HOLIDAY_NM:String,
+        var WEEK_WORK_HR:String,
+        var JO_FEINSR_SBSCRB_NM:String,
+        var RCEPT_CLOS_NM:String,
+        var RCEPT_MTH_IEM_NM:String,
+        var MODEL_MTH_NM:String,
+        var RCEPT_MTH_NM:String,
+        var PRESENTN_PAPERS_NM:String,
+        var MNGR_NM:String,
+        var MNGR_PHON_NO:String,
+        var MNGR_INSTT_NM:String,
+        var BASS_ADRES_CN:String
+    ) {}
 }

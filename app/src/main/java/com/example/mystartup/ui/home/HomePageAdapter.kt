@@ -16,9 +16,13 @@ class HomePageAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = layoutInflater.inflate(R.layout.home_info, container, false)
         val titleView = view.findViewById<TextView>(R.id.pager_title)
-        val msgView = view.findViewById<TextView>(R.id.pager_msg)
+        val typeView = view.findViewById<TextView>(R.id.pager_support_type)
+        val dateView = view.findViewById<TextView>(R.id.pager_end_date)
+        val targetView = view.findViewById<TextView>(R.id.pager_target)
         titleView.setText(infoList[position].title)
-        msgView.setText(infoList[position].msg)
+        typeView.setText(infoList[position].supportType)
+        dateView.setText(infoList[position].endDate)
+        targetView.setText(infoList[position].postTarget)
         container.addView(view)
         return view
     }
