@@ -19,11 +19,13 @@ class JobAsynctask(
 ) : AsyncTask<Any?, Any?, Any?>() {
 
     lateinit var buffer:String
+    lateinit var jobList:ArrayList<JobActivity.JobInfoForList>
 
     override fun doInBackground(vararg params: Any?): Any? {
         val urlString="http://openapi.seoul.go.kr:8088/77634563776a646831333078745a5578/json/GetJobInfo/1/100/"
         val url=URL(urlString)
         val connection: HttpURLConnection=url.openConnection() as HttpURLConnection
+
 
         connection.requestMethod="GET"
 
@@ -52,7 +54,7 @@ class JobAsynctask(
 
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
-        val jobList = ArrayList<JobActivity.JobInfoForList>()
+        jobList = ArrayList()
 
         val json = JSONObject(buffer)
         val chiefObject = (json["GetJobInfo"] as JSONObject)
@@ -61,17 +63,46 @@ class JobAsynctask(
         if(resultObject.getString("CODE") == "INFO-000") {
 
             val upperArray : JSONArray = chiefObject.getJSONArray("row")
-            for(i in 0 until 100){
+            for(i in 0 until upperArray.length()){
                 val upperObject = upperArray.getJSONObject(i)
-                val name = upperObject.getString("CMPNY_NM")
-                val info = upperObject.getString("DTY_CN")
-                val money = upperObject.getString("HOPE_WAGE")
-                val shortMoney = money.split("원")
-                val place = upperObject.getString("WORK_PARAR_BASS_ADRES_CN")
-                val career = upperObject.getString("CAREER_CND_NM")
 
-                jobList.add(JobActivity.JobInfoForList(name,info,shortMoney[0]+"원",place,career))
+
+                jobList.add(JobActivity.JobInfoForList(
+                    upperObject.getString("JO_REGIST_NO"),
+                    upperObject.getString("CMPNY_NM"),
+                    upperObject.getString("BSNS_SUMRY_CN"),
+                    upperObject.getString("RCRIT_JSSFC_CMMN_CODE_SE"),
+                    upperObject.getString("JOBCODE_NM"),
+                    upperObject.getInt("RCRIT_NMPR_CO"),
+                    upperObject.getString("ACDMCR_CMMN_CODE_SE"),
+                    upperObject.getString("ACDMCR_NM"),
+                    upperObject.getString("EMPLYM_STLE_CMMN_CODE_SE"),
+                    upperObject.getString("EMPLYM_STLE_CMMN_MM"),
+                    upperObject.getString("WORK_PARAR_BASS_ADRES_CN"),
+                    upperObject.getString("SUBWAY_NM"),
+                    upperObject.getString("DTY_CN"),
+                    upperObject.getString("CAREER_CND_CMMN_CODE_SE"),
+                    upperObject.getString("CAREER_CND_NM"),
+                    upperObject.getString("HOPE_WAGE"),
+                    upperObject.getString("RET_GRANTS_NM"),
+                    upperObject.getString("WORK_TIME_NM"),
+                    upperObject.getString("WORK_TM_NM"),
+                    upperObject.getString("HOLIDAY_NM"),
+                    upperObject.getString("WEEK_WORK_HR"),
+                    upperObject.getString("JO_FEINSR_SBSCRB_NM"),
+                    upperObject.getString("RCEPT_CLOS_NM"),
+                    upperObject.getString("RCEPT_MTH_IEM_NM"),
+                    upperObject.getString("MODEL_MTH_NM"),
+                    upperObject.getString("RCEPT_MTH_NM"),
+                    upperObject.getString("PRESENTN_PAPERS_NM"),
+                    upperObject.getString("MNGR_NM"),
+                    upperObject.getString("MNGR_PHON_NO"),
+                    upperObject.getString("MNGR_INSTT_NM"),
+                    upperObject.getString("BASS_ADRES_CN")
+
+                ))
             }
+
 
             val adapter = RecyclerViewAdapter(jobList, LayoutInflater.from(jobActivity))
             jobActivity.job_recyclerview.adapter = adapter
