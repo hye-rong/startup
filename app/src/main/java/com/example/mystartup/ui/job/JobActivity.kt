@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -53,6 +54,87 @@ class JobActivity : AppCompatActivity() {
                 else->{
                     false
                 }
+            }
+        }
+
+        //상세검색버튼
+        job_search_btn.setOnClickListener {
+            if(checkbox_view.visibility==View.GONE) {
+                checkbox_view.visibility = View.VISIBLE
+                job_search_btn.setText("상세조건on")
+            }
+            else {
+                checkbox_view.visibility = View.GONE
+                job_search_btn.setText("상세조건off")
+            }
+        }
+        job_detail_search_btn.setOnClickListener {
+            checkbox_view.visibility = View.GONE
+            job_search_btn.setText("상세조건off")
+        }
+
+        //체크박스
+        checkbox_edu_1.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_2.isChecked=false
+                checkbox_edu_3.isChecked=false
+                checkbox_edu_4.isChecked=false
+                checkbox_edu_5.isChecked=false
+                checkbox_edu_6.isChecked=false
+                checkbox_edu_7.isChecked=false
+            }
+        }
+        checkbox_edu_2.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_1.isChecked = false
+            }
+        }
+        checkbox_edu_3.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_1.isChecked = false
+            }
+        }
+        checkbox_edu_4.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_1.isChecked = false
+            }
+        }
+        checkbox_edu_5.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_1.isChecked = false
+            }
+        }
+        checkbox_edu_6.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_1.isChecked = false
+            }
+        }
+        checkbox_edu_7.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_edu_1.isChecked = false
+            }
+        }
+
+        checkbox_career_1.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_career_2.isChecked=false
+                checkbox_career_3.isChecked=false
+                checkbox_career_4.isChecked=false
+            }
+        }
+        checkbox_career_2.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_career_1.isChecked = false
+            }
+        }
+        checkbox_career_3.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_career_1.isChecked = false
+            }
+        }
+        checkbox_career_4.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked==true){
+                checkbox_career_1.isChecked = false
             }
         }
 
