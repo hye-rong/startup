@@ -29,14 +29,14 @@ class JobAsynctask(
 
         connection.requestMethod="GET"
 
-        Log.d("async","되나?")
+        Log.d("jobb","되나?")
 
         connection.setRequestProperty("Content-Type", "application/json")
-        Log.d("async", "" + connection.responseCode.toString())
+        Log.d("jobb", "" + connection.responseCode.toString())
 
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
 
-            Log.d("async", "inputstream : " + connection.inputStream)
+            Log.d("jobb", "inputstream : " + connection.inputStream)
             val reader = BufferedReader(
                 InputStreamReader(
                     connection.inputStream,
@@ -44,7 +44,7 @@ class JobAsynctask(
                 )
             )
             buffer = reader.readLine()
-            Log.d("async", "buffer : " + buffer)
+            Log.d("jobb", "buffer : " + buffer)
             //data = Gson().fromJson(buffer, Array<Person>::class.java)
 
         }
@@ -63,9 +63,15 @@ class JobAsynctask(
         if(resultObject.getString("CODE") == "INFO-000") {
 
             val upperArray : JSONArray = chiefObject.getJSONArray("row")
+            //Log.d("jobb",""+upperArray.length())
             for(i in 0 until upperArray.length()){
                 val upperObject = upperArray.getJSONObject(i)
+//                Log.d("jobb",""+i+")"+
+//                        upperObject.getString("RCRIT_JSSFC_CMMN_CODE_SE")+
+//                        upperObject.getString("JOBCODE_NM"))
 
+
+                Log.d("jobbb",upperObject.getString("WORK_PARAR_BASS_ADRES_CN"))
 
                 jobList.add(JobActivity.JobInfoForList(
                     upperObject.getString("JO_REGIST_NO"),
@@ -102,6 +108,7 @@ class JobAsynctask(
 
                 ))
             }
+
 
 
             val adapter = RecyclerViewAdapter(jobList, LayoutInflater.from(jobActivity))
