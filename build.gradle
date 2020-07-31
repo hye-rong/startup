@@ -21,7 +21,12 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        maven{
+            url 'http://navercorp.bintray.com/maps'
+        }
     }
+
 }
 
 task clean(type: Delete) {

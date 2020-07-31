@@ -16,8 +16,8 @@
         <activity android:name=".ui.job.JobActivity" />
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_api_key" />
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="@string/client_id"/>
 
         <activity android:name=".ui.map.CafeActivity" >
 

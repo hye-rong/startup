@@ -68,13 +68,6 @@ class CafeAsyncTask(val cafeActivity: CafeActivity) : AsyncTask<Any?, Any?, Any?
                     )
 
                 )
-                /*listAddRRESS = geocode.getFromLocationName(
-                    realArray.getJSONObject(i).get("BASS_ADRES_CN").toString()
-                    , 100
-                )
-                var latitude: String = listAddRRESS.iterator().next().latitude.toString()
-                var longitude: String = listAddRRESS.iterator().next().longitude.toString()
-                Log.d("addasrewar",latitude+"/"+longitude)*/
             }
 
 

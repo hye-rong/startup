@@ -24,26 +24,6 @@ class ListAndDetailFragment(val cafeActivity: CafeActivity) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*val cafeList = ArrayList<CafeInfo>()
-        for (i in 0 until 20)
-            cafeList.add(
-                CafeInfo(
-                    "http://job.seoul.go.kr/www/common/img.jsp?dir=jobcafe&name=MIN_0559_1.jpg"
-                    , "CAFE" + i
-                    , "info info info" + i
-                    , "강서구" + i
-                )
-            )
-        with(cafe_recycler_view) {
-            this.adapter = CafeRecyclerAdapter(
-                cafeActivity,
-                LayoutInflater.from(cafeActivity),
-                cafeList
-            )
-            this.layoutManager = LinearLayoutManager(cafeActivity)
-        }*/
-
-
 
 
     }
