@@ -1,22 +1,12 @@
 package com.example.mystartup.ui.map
 
+import android.location.Address
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mystartup.R
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_cafe.*
-import kotlinx.android.synthetic.main.favorite_page.*
 
 class CafeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +22,11 @@ class CafeActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
             .replace(R.id.list_detail_fragment, listAndDetailFragment).commit()
 
-        val cafeAsyncTask = CafeAsyncTask(this@CafeActivity)
+        val cafeAsyncTask =
+            CafeAsyncTask(this@CafeActivity)
         cafeAsyncTask.execute()
-        Log.d("request","tt")
+        Log.d("request", "tt")
+
 
 
     }
