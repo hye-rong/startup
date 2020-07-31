@@ -1,5 +1,6 @@
 package com.example.mystartup.ui.map
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment() : Fragment(), OnMapReadyCallback {
     lateinit var mMap: GoogleMap
     lateinit var mapView: MapView
+    /*lateinit var geocoder: Geocoder*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +34,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val hideShowBtn = view.findViewById<Button>(R.id.hide_map_show)
-        hideShowBtn.setOnClickListener {
-            Toast.makeText(context, "CLICK", Toast.LENGTH_SHORT).show()
-
-        }*/
     }
 
     override fun onMapReady(p0: GoogleMap?) {

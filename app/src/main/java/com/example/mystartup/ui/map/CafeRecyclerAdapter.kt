@@ -13,9 +13,9 @@ import com.example.mystartup.R
 import kotlinx.android.synthetic.main.cafe_list.view.*
 
 class CafeRecyclerAdapter(
-    val cafeActivity: CafeActivity,
-    val inflater: LayoutInflater,
-    val list: ArrayList<CafeInfo>
+    private val cafeActivity: CafeActivity,
+    private val inflater: LayoutInflater,
+    private val list: ArrayList<CafeInfoServer>
 ) : RecyclerView.Adapter<CafeRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,12 +39,12 @@ class CafeRecyclerAdapter(
     @SuppressLint("CheckResult")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(cafeActivity)
-            .load(list.get(position).cafeURL)
+            .load(list.get(position).FILE_NM)
             .fitCenter()
             .into(holder.cafeImage)
-        holder.cafeName.setText( list.get(position).cafeName )
-        holder.cafeSimpleInfo.setText( list.get(position).cafeSimpleInfo )
-        holder.cafeDistrict.setText( list.get(position).cafeDistrict)
+        holder.cafeName.setText( list.get(position).CAFE_NM )
+        holder.cafeSimpleInfo.setText( list.get(position).SMPL_INTRO )
+        holder.cafeDistrict.setText( list.get(position).GUGUN)
 
     }
 

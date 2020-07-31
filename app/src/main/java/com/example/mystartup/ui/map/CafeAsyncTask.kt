@@ -1,19 +1,24 @@
 package com.example.mystartup.ui.map
 
+import android.location.Address
+import android.location.Geocoder
 import android.os.AsyncTask
 import android.util.Log
+import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.except_map_fragment.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
 class CafeAsyncTask(val cafeActivity: CafeActivity) : AsyncTask<Any?, Any?, Any?>() {
     private lateinit var buffer: String
-    private val cafeList = ArrayList<CafeInfo>()
+    private lateinit var listAddRRESS: List<Address>
+    private val cafeList = ArrayList<CafeInfoServer>()
+
+
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
         val json = JSONObject(buffer)
@@ -30,22 +35,58 @@ class CafeAsyncTask(val cafeActivity: CafeActivity) : AsyncTask<Any?, Any?, Any?
 
             for (i in 0 until realArray.length()) {
                 cafeList.add(
-                    CafeInfo(
-                        realArray.getJSONObject(i).get("FILE_NM").toString(),
+                    CafeInfoServer(
                         realArray.getJSONObject(i).get("CAFE_NM").toString(),
                         realArray.getJSONObject(i).get("SMPL_INTRO").toString(),
-                        realArray.getJSONObject(i).get("GUGUN").toString()
+                        realArray.getJSONObject(i).get("SPACE_INFRO").toString(),
+                        realArray.getJSONObject(i).get("USE_DT").toString(),
+                        realArray.getJSONObject(i).get("HOLI_DD").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO1").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO2").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO3").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO4").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO5").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO6").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO7").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO8").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO9").toString(),
+                        realArray.getJSONObject(i).get("FACLT_INFO10").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST1").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST2").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST3").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST4").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST5").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST6").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST7").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST8").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST9").toString(),
+                        realArray.getJSONObject(i).get("RSRV_SGGST10").toString(),
+                        realArray.getJSONObject(i).get("BASS_ADRES_CN").toString(),
+                        realArray.getJSONObject(i).get("GUGUN").toString(),
+                        realArray.getJSONObject(i).get("ROAD_ADRES2_CN").toString(),
+                        realArray.getJSONObject(i).get("FILE_NM").toString()
                     )
+
                 )
-                Log.d("request", cafeList.get(i).cafeURL)
+                /*listAddRRESS = geocode.getFromLocationName(
+                    realArray.getJSONObject(i).get("BASS_ADRES_CN").toString()
+                    , 100
+                )
+                var latitude: String = listAddRRESS.iterator().next().latitude.toString()
+                var longitude: String = listAddRRESS.iterator().next().longitude.toString()
+                Log.d("addasrewar",latitude+"/"+longitude)*/
             }
-        }else{
+
+
+
+        } else {
             //통신잘안됨
+
         }
         with(cafeActivity.cafe_recycler_view) {
             this.adapter = CafeRecyclerAdapter(
                 cafeActivity,
-                android.view.LayoutInflater.from(cafeActivity),
+                LayoutInflater.from(cafeActivity),
                 cafeList
             )
             this.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(cafeActivity)
