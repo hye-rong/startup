@@ -8,7 +8,7 @@ import android.util.Log
 import com.example.mystartup.R
 import kotlinx.android.synthetic.main.activity_cafe.*
 
-class CafeActivity : AppCompatActivity() {
+open class CafeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cafe)
@@ -23,12 +23,11 @@ class CafeActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
             .replace(R.id.list_detail_fragment, listAndDetailFragment).commit()
 
+        val geoCoingAsync = GeoCoingAsync(this@CafeActivity)
         val cafeAsyncTask =
-            CafeAsyncTask(this@CafeActivity)
+            CafeAsyncTask(this@CafeActivity,geoCoingAsync)
         cafeAsyncTask.execute()
         Log.d("request", "tt")
-
-
 
     }
 

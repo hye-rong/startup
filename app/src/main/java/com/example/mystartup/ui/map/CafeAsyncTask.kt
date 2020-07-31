@@ -13,11 +13,12 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class CafeAsyncTask(val cafeActivity: CafeActivity) : AsyncTask<Any?, Any?, Any?>() {
+class CafeAsyncTask(
+    val cafeActivity: CafeActivity,
+    val geoCoingAsync: GeoCoingAsync
+) : AsyncTask<Any?, Any?, Any?>() {
     private lateinit var buffer: String
-    private lateinit var listAddRRESS: List<Address>
     private val cafeList = ArrayList<CafeInfoServer>()
-
 
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
@@ -71,7 +72,6 @@ class CafeAsyncTask(val cafeActivity: CafeActivity) : AsyncTask<Any?, Any?, Any?
             }
 
 
-
         } else {
             //통신잘안됨
 
@@ -84,8 +84,7 @@ class CafeAsyncTask(val cafeActivity: CafeActivity) : AsyncTask<Any?, Any?, Any?
             )
             this.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(cafeActivity)
         }
-
-
+        geoCoingAsync.execute()
     }
 
     override fun doInBackground(vararg params: Any?): Any? {

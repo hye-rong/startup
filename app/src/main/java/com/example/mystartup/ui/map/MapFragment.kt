@@ -33,6 +33,7 @@ class MapFragment() : Fragment(),OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun onStart() {
