@@ -38,8 +38,5 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun initBtn(){
-        closeBtn.setOnClickListener {
-            this.finish()
-        }
     }
 }
