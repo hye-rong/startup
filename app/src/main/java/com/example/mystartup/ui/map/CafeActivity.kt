@@ -23,9 +23,8 @@ open class CafeActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
             .replace(R.id.list_detail_fragment, listAndDetailFragment).commit()
 
-        val geoCoingAsync = GeoCoingAsync(this@CafeActivity)
         val cafeAsyncTask =
-            CafeAsyncTask(this@CafeActivity,geoCoingAsync)
+            CafeAsyncTask(this@CafeActivity)
         cafeAsyncTask.execute()
         Log.d("request", "tt")
 

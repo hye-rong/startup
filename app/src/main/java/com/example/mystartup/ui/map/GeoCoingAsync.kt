@@ -12,18 +12,20 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class GeoCoingAsync(
-    val cafeActivity: CafeActivity
+    val cafeActivity: CafeActivity,
+    val cafeList: ArrayList<CafeInfoServer>,
+    var index: Int
 ) :
     AsyncTask<Any?, Any?, Any?>() {
+    lateinit var address: String
     override fun onPreExecute() {
         super.onPreExecute()
-
+        address = cafeList.get(index).BASS_ADRES_CN.toString()
     }
 
     lateinit var buffer: String
     override fun doInBackground(vararg params: Any?): Any? {
         Log.d("geocodingasync", "실행됨")
-        var address: String = "경기도 과천시 별양로 111"
         val clientId = cafeActivity.getString(R.string.client_id)
         val clientSecret = cafeActivity.getString(R.string.client_secret)
         val urlString =
@@ -55,13 +57,18 @@ class GeoCoingAsync(
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
         val json = JSONObject(buffer)
+        val checkJSONObject = json["meta"] as JSONObject
+        val addressListCount: Int = checkJSONObject.get("count") as Int
         val chiefJSONArray = json["addresses"] as JSONArray
-        val realObject = chiefJSONArray.get(0) as JSONObject
-        val x = realObject.get("x").toString()
-        val y = realObject.get("y").toString()
-        Log.d("geocodingasync", chiefJSONArray.toString())
-        Log.d("geocodingasync", realObject.toString())
-        Log.d("geocodingasync", x)
-        Log.d("geocodingasync", y)
+        if (addressListCount != 0) {
+            val addressObject = chiefJSONArray.get(0) as JSONObject
+            cafeList[index].latitude = addressObject.get("y").toString()
+            cafeList[index].longitude = addressObject.get("x").toString()
+        } else {
+            //제대로 주소 파싱이 되지 않은 경우
+            Log.d("geocodingasync", "index : " + index.toString() + "번째 제대로안됨 어혜령때문에.")
+            return
+        }
+
     }
 }

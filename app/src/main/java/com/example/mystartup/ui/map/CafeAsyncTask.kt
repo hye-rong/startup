@@ -14,11 +14,11 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class CafeAsyncTask(
-    val cafeActivity: CafeActivity,
-    val geoCoingAsync: GeoCoingAsync
+    val cafeActivity: CafeActivity
 ) : AsyncTask<Any?, Any?, Any?>() {
     private lateinit var buffer: String
     private val cafeList = ArrayList<CafeInfoServer>()
+    lateinit var geoCoingAsync:GeoCoingAsync
 
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
@@ -35,6 +35,7 @@ class CafeAsyncTask(
             구군(27)GUGUN*/
 
             for (i in 0 until realArray.length()) {
+                var cafeAddress=realArray.getJSONObject(i).get("BASS_ADRES_CN").toString()
                 cafeList.add(
                     CafeInfoServer(
                         realArray.getJSONObject(i).get("CAFE_NM").toString(),
@@ -62,15 +63,15 @@ class CafeAsyncTask(
                         realArray.getJSONObject(i).get("RSRV_SGGST8").toString(),
                         realArray.getJSONObject(i).get("RSRV_SGGST9").toString(),
                         realArray.getJSONObject(i).get("RSRV_SGGST10").toString(),
-                        realArray.getJSONObject(i).get("BASS_ADRES_CN").toString(),
+                        cafeAddress,
                         realArray.getJSONObject(i).get("GUGUN").toString(),
                         realArray.getJSONObject(i).get("ROAD_ADRES2_CN").toString(),
                         realArray.getJSONObject(i).get("FILE_NM").toString()
                     )
-
                 )
+                geoCoingAsync=GeoCoingAsync(cafeActivity,cafeList,i)
+                geoCoingAsync.execute()
             }
-
 
         } else {
             //통신잘안됨
@@ -84,7 +85,6 @@ class CafeAsyncTask(
             )
             this.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(cafeActivity)
         }
-        geoCoingAsync.execute()
     }
 
     override fun doInBackground(vararg params: Any?): Any? {

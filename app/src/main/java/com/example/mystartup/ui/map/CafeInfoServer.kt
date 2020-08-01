@@ -31,6 +31,6 @@ class CafeInfoServer(
     var ROAD_ADRES2_CN: String?,
     var FILE_NM: String?
 ) {
-    var langitude: String? = null
+    var latitude: String? = null
     var longitude: String? = null
 }
