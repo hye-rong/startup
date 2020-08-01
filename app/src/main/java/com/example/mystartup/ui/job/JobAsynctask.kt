@@ -19,7 +19,7 @@ class JobAsynctask(
 ) : AsyncTask<Any?, Any?, Any?>() {
 
     lateinit var buffer:String
-    lateinit var jobList:ArrayList<JobActivity.JobInfoForList>
+
 
     override fun doInBackground(vararg params: Any?): Any? {
         val urlString="http://openapi.seoul.go.kr:8088/77634563776a646831333078745a5578/json/GetJobInfo/1/100/"
@@ -54,7 +54,6 @@ class JobAsynctask(
 
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
-        jobList = ArrayList()
 
         val json = JSONObject(buffer)
         val chiefObject = (json["GetJobInfo"] as JSONObject)
@@ -73,7 +72,7 @@ class JobAsynctask(
 
                 Log.d("jobbb",upperObject.getString("WORK_PARAR_BASS_ADRES_CN"))
 
-                jobList.add(JobActivity.JobInfoForList(
+                jobActivity.jobList.add(JobActivity.JobInfoForList(
                     upperObject.getString("JO_REGIST_NO"),
                     upperObject.getString("CMPNY_NM"),
                     upperObject.getString("BSNS_SUMRY_CN"),
@@ -111,7 +110,7 @@ class JobAsynctask(
 
 
 
-            val adapter = RecyclerViewAdapter(jobList, LayoutInflater.from(jobActivity))
+            val adapter = RecyclerViewAdapter(jobActivity.jobList, LayoutInflater.from(jobActivity))
             jobActivity.job_recyclerview.adapter = adapter
             jobActivity.job_recyclerview.layoutManager = LinearLayoutManager(jobActivity)
 
