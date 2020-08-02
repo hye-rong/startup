@@ -1,6 +1,7 @@
 package com.example.mystartup.ui.map
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +19,14 @@ class ListAndDetailFragment(val cafeActivity: CafeActivity) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("LIFECYCLE","ListAndDetailFragment onCreateView")
+        /*val cafeAsyncTask = CafeAsyncTask(cafeActivity)
+        cafeAsyncTask.execute()*/
         return inflater.inflate(R.layout.except_map_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("LIFECYCLE","ListAndDetailFragment onViewCreated")
         super.onViewCreated(view, savedInstanceState)
-
-
-
     }
 }
