@@ -110,8 +110,8 @@ class JobAsynctask(
 
 
 
-            val adapter = RecyclerViewAdapter(jobActivity.jobList, LayoutInflater.from(jobActivity))
-            jobActivity.job_recyclerview.adapter = adapter
+            jobActivity.adapter = RecyclerViewAdapter(jobActivity.jobList, jobActivity)
+            jobActivity.job_recyclerview.adapter = jobActivity.adapter
             jobActivity.job_recyclerview.layoutManager = LinearLayoutManager(jobActivity)
 
         }
