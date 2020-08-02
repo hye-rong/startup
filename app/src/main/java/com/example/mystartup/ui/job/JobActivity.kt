@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.KeyEvent.ACTION_UP
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mystartup.R
 import kotlinx.android.synthetic.main.activity_job.*
@@ -21,6 +25,7 @@ class JobActivity : AppCompatActivity() {
     lateinit var jobListForSearch:ArrayList<JobActivity.JobInfoForList>
     lateinit var job_edu_list:ArrayList<String>
     lateinit var job_career_list:ArrayList<String>
+    lateinit var adapter:RecyclerViewAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +51,21 @@ class JobActivity : AppCompatActivity() {
             when(actionId){
                 EditorInfo.IME_ACTION_SEARCH -> {
                     //클릭
-                    Toast.makeText(this,"조대현 멍청이ㅎㅎ",Toast.LENGTH_SHORT).show()
+                    val text = v.text.toString().trim()
+                    jobListForSearch.clear()
+                    Log.d("addd",""+jobList.size)
+                    for(i in 0 until jobList.size){
+                        if(jobList[i].CMPNY_NM.contains(text)) {
+                            Log.d("addd","contain : "+text+", in : "+jobList[i].CMPNY_NM)
+                            jobListForSearch.add(jobList[i])
+                        }
+                        else{
+                            Log.d("addd","NOT contain : "+text+", in : "+jobList[i].CMPNY_NM)
+                        }
+                    }
+                    val adapter = RecyclerViewAdapter(jobListForSearch, this@JobActivity)
+                    job_recyclerview.adapter = adapter
+                    Toast.makeText(this,"setOnEditorActionListener",Toast.LENGTH_SHORT).show()
                     CloseKeyboard()
                     true
                 }
@@ -55,19 +74,22 @@ class JobActivity : AppCompatActivity() {
                     false
                 }
             }
+
         }
-        job_edit.setOnKeyListener { v, keyCode, event ->
-            when(keyCode){
-                KeyEvent.KEYCODE_ENTER->{
-                    CloseKeyboard()
-                    Toast.makeText(this,"조대현 멍청이ㅎㅎ",Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else->{
-                    false
-                }
+
+        job_edit.setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KEYCODE_ENTER) {
+                job_edit.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+                Log.d("codee","내가 원하는 enter action")
+                true
             }
+            else {
+                Log.d("codee", "원하지 않는 enter action")
+                false
+            }
+
         }
+
 
         //상세검색버튼
         job_search_btn.setOnClickListener {
@@ -146,7 +168,7 @@ class JobActivity : AppCompatActivity() {
 
             }
 
-            val adapter = RecyclerViewAdapter(jobListForSearch, LayoutInflater.from(this@JobActivity))
+            val adapter = RecyclerViewAdapter(jobListForSearch, this@JobActivity)
             job_recyclerview.adapter = adapter
 
 
@@ -224,6 +246,8 @@ class JobActivity : AppCompatActivity() {
 
 
     }
+
+
 
 
     fun CloseKeyboard()

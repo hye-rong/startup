@@ -1,3 +1,4 @@
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -5,13 +6,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mystartup.R
 import com.example.mystartup.ui.job.JobActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RecyclerViewAdapter(
     val itemList:ArrayList<JobActivity.JobInfoForList>,
-    val inflater: LayoutInflater
+    val context: Activity
 ): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
+    lateinit var searchList: ArrayList<JobActivity.JobInfoForList>
     inner class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         val jobName: TextView
         val jobInfo: TextView
@@ -36,7 +40,7 @@ class RecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = inflater.inflate(R.layout.job_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.job_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -46,6 +50,7 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val hopeWageSplit = itemList.get(position).HOPE_WAGE.split("원")
+        searchList= ArrayList()
 
         holder.jobName.setText(itemList.get(position).CMPNY_NM)
         holder.jobInfo.setText(itemList.get(position).BSNS_SUMRY_CN)
@@ -53,4 +58,6 @@ class RecyclerViewAdapter(
         holder.jobPlace.setText(itemList.get(position).WORK_PARAR_BASS_ADRES_CN)
         holder.jobCareer.setText(itemList.get(position).CAREER_CND_NM)
     }
+
+
 }
