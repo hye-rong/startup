@@ -1,33 +1,38 @@
 package com.example.mystartup.ui.map
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.replace
 import com.example.mystartup.R
 import kotlinx.android.synthetic.main.activity_cafe.*
 
 open class CafeActivity : AppCompatActivity() {
+    val cafeList = ArrayList<CafeInfoServer>()
+    val mapFragment = MapFragment(this)
+    val fragmentManager = supportFragmentManager
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cafe)
 
+        Log.d("LIFECYCLE", "CafeActivity onCreate")
 
-        val mapFragment = MapFragment()
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.map_fragment, mapFragment).commit()
 
-        val listAndDetailFragment = ListAndDetailFragment(this)
-        fragmentManager.beginTransaction()
-            .replace(R.id.list_detail_fragment, listAndDetailFragment).commit()
-
-        val cafeAsyncTask =
-            CafeAsyncTask(this@CafeActivity)
+        val cafeAsyncTask = CafeAsyncTask(this@CafeActivity)
         cafeAsyncTask.execute()
-        Log.d("request", "tt")
-
+        mapFragment.jodaehyeon()
     }
 
+    /*fun sendCafeList() {
+        //Activity에서 Fragment로 보내는 구문
+        val bundle: Bundle = Bundle()
+        bundle.putString("jebalttt","성공성공성공성공성공성공성공성공")
+        mapFragment.arguments = bundle
+    }*/
 }

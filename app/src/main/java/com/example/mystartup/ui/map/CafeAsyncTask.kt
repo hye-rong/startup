@@ -5,6 +5,7 @@ import android.location.Geocoder
 import android.os.AsyncTask
 import android.util.Log
 import android.view.LayoutInflater
+import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.except_map_fragment.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,10 +18,11 @@ class CafeAsyncTask(
     val cafeActivity: CafeActivity
 ) : AsyncTask<Any?, Any?, Any?>() {
     private lateinit var buffer: String
-    private val cafeList = ArrayList<CafeInfoServer>()
-    lateinit var geoCoingAsync:GeoCoingAsync
+    //private val cafeList = ArrayList<CafeInfoServer>()
+    lateinit var geoCoingAsync: GeoCoingAsync
 
     override fun onPostExecute(result: Any?) {
+        Log.d("LIFECYCLE", "CafeAsyncTask onPostExecute")
         super.onPostExecute(result)
         val json = JSONObject(buffer)
         val chiefObject = json["jobCafeOpenInfo"] as JSONObject
@@ -33,10 +35,9 @@ class CafeAsyncTask(
             카페명(1)CAFE_NM
             간략소개(2)SMPL_INTRO
             구군(27)GUGUN*/
-
             for (i in 0 until realArray.length()) {
-                var cafeAddress=realArray.getJSONObject(i).get("BASS_ADRES_CN").toString()
-                cafeList.add(
+                var cafeAddress = realArray.getJSONObject(i).get("BASS_ADRES_CN").toString()
+                cafeActivity.cafeList.add(
                     CafeInfoServer(
                         realArray.getJSONObject(i).get("CAFE_NM").toString(),
                         realArray.getJSONObject(i).get("SMPL_INTRO").toString(),
@@ -69,7 +70,11 @@ class CafeAsyncTask(
                         realArray.getJSONObject(i).get("FILE_NM").toString()
                     )
                 )
-                geoCoingAsync=GeoCoingAsync(cafeActivity,cafeList,i)
+                geoCoingAsync = GeoCoingAsync(
+                    cafeActivity,
+                    i,
+                    realArray.length()
+                )
                 geoCoingAsync.execute()
             }
 
@@ -81,13 +86,14 @@ class CafeAsyncTask(
             this.adapter = CafeRecyclerAdapter(
                 cafeActivity,
                 LayoutInflater.from(cafeActivity),
-                cafeList
+                cafeActivity.cafeList
             )
             this.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(cafeActivity)
         }
     }
 
     override fun doInBackground(vararg params: Any?): Any? {
+        Log.d("LIFECYCLE", "CafeAsyncTask doInBackground")
         Log.d("requestProperty", "실행됨")
         val urlString =
             "http://openapi.seoul.go.kr:8088/75624659416a64683131306d686f4a6c/json/jobCafeOpenInfo/1/80/"
@@ -111,7 +117,7 @@ class CafeAsyncTask(
             buffer = reader.readLine()
             Log.d("requestProperty1", buffer)
         }
-        return null
+        return buffer
     }
 
 }
