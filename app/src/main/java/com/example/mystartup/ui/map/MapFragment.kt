@@ -34,7 +34,7 @@ class MapFragment(private val cafeActivity: CafeActivity) : Fragment(), OnMapRea
         infoWindowList=ArrayList<InfoWindow>()
 
         for (i in 0 until cafeActivity.cafeList.size) {
-            //infoWindowList.add(InfoWindow())//새로
+            infoWindowList.add(InfoWindow())//새로
             val x = cafeActivity.cafeList[i].latitude?.toDouble()
             val y = cafeActivity.cafeList[i].longitude?.toDouble()
             address=cafeActivity.cafeList[i].BASS_ADRES_CN.toString()
@@ -46,8 +46,7 @@ class MapFragment(private val cafeActivity: CafeActivity) : Fragment(), OnMapRea
                 markerArray[i].map = null
             }
             markerArray[i].tag=address
-
-            infoWindow.adapter=object :InfoWindow.DefaultTextAdapter(cafeActivity){
+            infoWindowList[i].adapter=object :InfoWindow.DefaultTextAdapter(cafeActivity){
                 override fun getText(p0: InfoWindow): CharSequence {
                     return markerArray[i].tag as CharSequence
                 }
@@ -55,9 +54,9 @@ class MapFragment(private val cafeActivity: CafeActivity) : Fragment(), OnMapRea
             val listener=  Overlay.OnClickListener {
                 val marker=it as Marker
                 if(marker.infoWindow==null)
-                    infoWindow.open(marker)
+                    infoWindowList[i].open(marker)
                 else
-                    infoWindow.close()
+                    infoWindowList[i].close()
                 true
             }
             markerArray[i].onClickListener = listener
