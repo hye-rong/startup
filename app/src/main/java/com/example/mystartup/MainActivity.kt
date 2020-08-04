@@ -9,6 +9,8 @@ import com.example.mystartup.ui.educate_money.EducateActivity
 import com.example.mystartup.ui.educate_money.MoneyActivity
 import com.example.mystartup.ui.favorite.FavoriteActivity
 import com.example.mystartup.ui.home.HomeAsyncTask
+import com.example.mystartup.ui.home.StartupActivity
+import com.example.mystartup.ui.home.StartupInfo
 import com.example.mystartup.ui.job.JobActivity
 import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_toolbar.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var infoList:ArrayList<StartupInfo>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,22 +61,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
-        //ArrayList받아오기
-//        infoList = ArrayList<StartupInfo>()
-//        for(i in 0 until 5){
-//            infoList.add(StartupInfo("title"+(i+1), "창업 정보가 출력됩니다."))
-//        }
-//        pageAdapter = HomePageAdapter(
-//            LayoutInflater.from(context),
-//            infoList
-//        )
-//        home_view_pager.adapter = pageAdapter
-//
+        home_plus_btn.setOnClickListener {
+            //더보기 버튼 클릭
+            val intent = Intent(this, StartupActivity::class.java)
+            intent.putExtra("startup",infoList)
+            startActivity(intent)
+
+        }
+
         home_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tab_layout))
 
         home_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{

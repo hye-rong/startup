@@ -24,7 +24,7 @@ class HomeAsyncTask(
 ) : AsyncTask<Any?, Any?, Any?>() {
 
     lateinit var buffer:String
-    lateinit var infoList:ArrayList<StartupInfo>
+
 
     override fun doInBackground(vararg params: Any?): Any? {
         val urlString="http://openapi.kised.or.kr/openapi/service/rest/ContentsService/getAnnouncementList?serviceKey=FkHh1kM622aVGEkUpE1P%2BT%2BuyADEBQNOyHyzouzowo0HE1YRi1esgTgfGc8Wmk%2Bf858BSbrcoVYzh%2BGMAlfxtg%3D%3D&pageNo=1&numOfRows=30&pageSize=999&startPage=1&startDate=20190101&endDate=20201020&_type=json"
@@ -62,7 +62,7 @@ class HomeAsyncTask(
 
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
-        infoList = ArrayList()
+        mainActivity.infoList = ArrayList()
 
 
         val json = JSONObject(buffer)
@@ -85,7 +85,7 @@ class HomeAsyncTask(
 
                 Log.d("homee",""+i)
 
-                infoList.add(StartupInfo(
+                mainActivity.infoList.add(StartupInfo(
 
                     upperObject.getString("areaname"),
                     upperObject.getString("detailurl"),
@@ -101,7 +101,7 @@ class HomeAsyncTask(
             progress_view.visibility = View.GONE
             val pageAdapter = HomePageAdapter(
                 LayoutInflater.from(mainActivity),
-                infoList
+                mainActivity.infoList
             )
             mainActivity.home_view_pager.adapter = pageAdapter
 

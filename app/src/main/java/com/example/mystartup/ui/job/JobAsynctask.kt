@@ -65,12 +65,9 @@ class JobAsynctask(
             //Log.d("jobb",""+upperArray.length())
             for(i in 0 until upperArray.length()){
                 val upperObject = upperArray.getJSONObject(i)
-//                Log.d("jobb",""+i+")"+
-//                        upperObject.getString("RCRIT_JSSFC_CMMN_CODE_SE")+
-//                        upperObject.getString("JOBCODE_NM"))
 
 
-                Log.d("jobbb",upperObject.getString("WORK_PARAR_BASS_ADRES_CN"))
+                upperObject.has("JO_REGIST_NO")
 
                 jobActivity.jobList.add(JobActivity.JobInfoForList(
                     upperObject.getString("JO_REGIST_NO"),

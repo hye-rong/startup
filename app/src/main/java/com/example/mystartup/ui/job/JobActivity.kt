@@ -18,14 +18,16 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mystartup.R
 import kotlinx.android.synthetic.main.activity_job.*
+import java.io.Serializable
 
 class JobActivity : AppCompatActivity() {
 
-    lateinit var jobList:ArrayList<JobActivity.JobInfoForList>
-    lateinit var jobListForSearch:ArrayList<JobActivity.JobInfoForList>
+    lateinit var jobList:ArrayList<JobInfoForList>
+    lateinit var jobListForSearch:ArrayList<JobInfoForList>
     lateinit var job_edu_list:ArrayList<String>
     lateinit var job_career_list:ArrayList<String>
     lateinit var adapter:RecyclerViewAdapter
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -294,5 +296,5 @@ class JobActivity : AppCompatActivity() {
         var MNGR_PHON_NO:String,
         var MNGR_INSTT_NM:String,
         var BASS_ADRES_CN:String
-    ) {}
+    ):Serializable
 }

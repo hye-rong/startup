@@ -1,4 +1,5 @@
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -6,16 +7,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mystartup.R
 import com.example.mystartup.ui.job.JobActivity
+import com.example.mystartup.ui.job.JobItemActivity
+import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class RecyclerViewAdapter(
     val itemList:ArrayList<JobActivity.JobInfoForList>,
-    val context: Activity
+    val context: JobActivity
 ): RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
-    lateinit var searchList: ArrayList<JobActivity.JobInfoForList>
+    //lateinit var searchList: ArrayList<JobActivity.JobInfoForList>
     inner class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         val jobName: TextView
         val jobInfo: TextView
@@ -33,6 +36,9 @@ class RecyclerViewAdapter(
             itemView.setOnClickListener {
                 //리스트를 누른 경우
                 val position = adapterPosition
+                val intent: Intent = Intent(context, JobItemActivity::class.java)
+                intent.putExtra("click", itemList[position] as Serializable)
+                context.startActivity(intent)
 
             }
         }
@@ -50,7 +56,7 @@ class RecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val hopeWageSplit = itemList.get(position).HOPE_WAGE.split("원")
-        searchList= ArrayList()
+        //searchList= ArrayList()
 
         holder.jobName.setText(itemList.get(position).CMPNY_NM)
         holder.jobInfo.setText(itemList.get(position).BSNS_SUMRY_CN)
@@ -61,3 +67,5 @@ class RecyclerViewAdapter(
 
 
 }
+
+

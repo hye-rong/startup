@@ -16,6 +16,7 @@ import com.example.mystartup.ui.job.JobAsynctask
 import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.Serializable
 
 class HomeFragment(val mainActivity: MainActivity) : Fragment() {
 
@@ -87,6 +88,4 @@ class HomeFragment(val mainActivity: MainActivity) : Fragment() {
     }
 }
 class StartupInfo(var areaName:String, var detailUrl:String, var endDate:String,
-var postTarget:String, var supportType:String, var title:String){
-
-}
+var postTarget:String, var supportType:String, var title:String):Serializable
