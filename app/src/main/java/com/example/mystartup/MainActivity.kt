@@ -9,13 +9,17 @@ import com.example.mystartup.ui.educate_money.EducateActivity
 import com.example.mystartup.ui.educate_money.MoneyActivity
 import com.example.mystartup.ui.favorite.FavoriteActivity
 import com.example.mystartup.ui.home.HomeAsyncTask
+import com.example.mystartup.ui.home.StartupActivity
 import com.example.mystartup.ui.job.JobActivity
 import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var infoList:ArrayList<StartupInfo>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,16 +30,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
 
+        val asyncTask = HomeAsyncTask(this@MainActivity)
+        asyncTask.execute()
+
         //set toolbar
         setSupportActionBar(toolbar) // 툴바를 액티비티의 앱바로 지정
         supportActionBar?.setDisplayHomeAsUpEnabled(false) // 드로어를 꺼낼 홈 버튼 활성화
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
 
 
-
         //****************homefragment code******************//
-        val asyncTask = HomeAsyncTask(this)
-        asyncTask.execute()
+
 
         main_place.setOnClickListener {
             intent = Intent(this, CafeActivity::class.java)
@@ -57,22 +62,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
         home_tab_layout.addTab(home_tab_layout.newTab())
-        //ArrayList받아오기
-//        infoList = ArrayList<StartupInfo>()
-//        for(i in 0 until 5){
-//            infoList.add(StartupInfo("title"+(i+1), "창업 정보가 출력됩니다."))
-//        }
-//        pageAdapter = HomePageAdapter(
-//            LayoutInflater.from(context),
-//            infoList
-//        )
-//        home_view_pager.adapter = pageAdapter
-//
+        home_plus_btn.setOnClickListener {
+            //더보기 버튼 클릭
+            val intent = Intent(this, StartupActivity::class.java)
+            intent.putExtra("startup",infoList)
+            startActivity(intent)
+
+        }
+
         home_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(home_tab_layout))
 
         home_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
@@ -114,6 +117,4 @@ class MainActivity : AppCompatActivity() {
 
 
 class StartupInfo(var areaName:String, var detailUrl:String, var endDate:String,
-                  var postTarget:String, var supportType:String, var title:String){
-
-}
+                  var postTarget:String, var supportType:String, var title:String):Serializable

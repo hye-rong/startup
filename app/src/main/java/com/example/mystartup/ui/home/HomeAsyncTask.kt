@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import com.example.mystartup.MainActivity
 import com.example.mystartup.R
+import com.example.mystartup.StartupInfo
 import com.example.mystartup.ui.job.JobActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONArray
@@ -24,26 +25,24 @@ class HomeAsyncTask(
 ) : AsyncTask<Any?, Any?, Any?>() {
 
     lateinit var buffer:String
-    lateinit var infoList:ArrayList<StartupInfo>
+
 
     override fun doInBackground(vararg params: Any?): Any? {
-        val urlString="http://openapi.kised.or.kr/openapi/service/rest/ContentsService/getAnnouncementList?serviceKey=FkHh1kM622aVGEkUpE1P%2BT%2BuyADEBQNOyHyzouzowo0HE1YRi1esgTgfGc8Wmk%2Bf858BSbrcoVYzh%2BGMAlfxtg%3D%3D&pageNo=1&numOfRows=30&pageSize=999&startPage=1&startDate=20190101&endDate=20201020&_type=json"
+        val urlString="http://openapi.kised.or.kr/openapi/service/rest/ContentsService/getAnnouncementList?serviceKey=FkHh1kM622aVGEkUpE1P%2BT%2BuyADEBQNOyHyzouzowo0HE1YRi1esgTgfGc8Wmk%2Bf858BSbrcoVYzh%2BGMAlfxtg%3D%3D&pageNo=1&numOfRows=100&pageSize=999&startPage=1&startDate=20190101&endDate=20201020&_type=json"
         val url=URL(urlString)
         val connection: HttpURLConnection=url.openConnection() as HttpURLConnection
 
 
-
-
         connection.requestMethod="GET"
 
-        Log.d("homee","되나?")
+        Log.d("timee","되나?")
 
         connection.setRequestProperty("Content-Type", "application/json")
-        Log.d("homee", "" + connection.responseCode.toString())
+        Log.d("timee", "" + connection.responseCode.toString())
 
         if (connection.responseCode == HttpURLConnection.HTTP_OK) {
 
-            Log.d("homee", "inputstream : " + connection.inputStream)
+            Log.d("timee", "inputstream : " + connection.inputStream)
             val reader = BufferedReader(
                 InputStreamReader(
                     connection.inputStream,
@@ -52,7 +51,7 @@ class HomeAsyncTask(
             )
             buffer = reader.readLine()
 
-            Log.d("homee", "buffer : " + buffer)
+            Log.d("timee", "buffer : " + buffer)
             //data = Gson().fromJson(buffer, Array<Person>::class.java)
 
         }
@@ -62,7 +61,7 @@ class HomeAsyncTask(
 
     override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
-        infoList = ArrayList()
+        mainActivity.infoList = ArrayList()
 
 
         val json = JSONObject(buffer)
@@ -75,6 +74,8 @@ class HomeAsyncTask(
             val itemObject = itemsObject.getJSONObject("items")
             val upperArray : JSONArray = itemObject.getJSONArray("item")
 
+            Log.d("timee","for문")
+
             for(i in 0 until upperArray.length()){
                 val upperObject = upperArray.getJSONObject(i)
 
@@ -85,7 +86,8 @@ class HomeAsyncTask(
 
                 Log.d("homee",""+i)
 
-                infoList.add(StartupInfo(
+                mainActivity.infoList.add(
+                    StartupInfo(
 
                     upperObject.getString("areaname"),
                     upperObject.getString("detailurl"),
@@ -94,14 +96,17 @@ class HomeAsyncTask(
                     upperObject.getString("supporttype"),
                     upperObject.getString("title")
 
-                ))
+                )
+                )
             }
+
+            Log.d("timee","for문 끝")
 
             val progress_view=mainActivity.findViewById<TextView>(R.id.progress)
             progress_view.visibility = View.GONE
             val pageAdapter = HomePageAdapter(
-                LayoutInflater.from(mainActivity),
-                infoList
+                mainActivity,
+                mainActivity.infoList
             )
             mainActivity.home_view_pager.adapter = pageAdapter
 

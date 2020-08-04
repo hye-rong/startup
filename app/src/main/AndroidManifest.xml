@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.educate_money.EducateActivity"></activity>
+        <activity android:name=".ui.home.StartupActivity"></activity>
+        <activity android:name=".ui.job.JobItemActivity" />
+        <activity android:name=".ui.educate_money.EducateActivity" />
         <activity android:name=".ui.educate_money.MoneyActivity" />
         <activity android:name=".ui.favorite.FavoriteActivity" />
         <activity android:name=".ui.job.JobActivity" />
