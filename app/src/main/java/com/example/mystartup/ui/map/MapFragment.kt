@@ -1,51 +1,82 @@
 package com.example.mystartup.ui.map
 
+import android.net.sip.SipSession
 import android.os.Bundle
+import android.text.style.CharacterStyle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior.setTag
 import androidx.fragment.app.Fragment
 import com.example.mystartup.R
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 
-class MapFragment(private val cafeActivity: CafeActivity) : Fragment(), OnMapReadyCallback {
+class MapFragment(private val cafeActivity: CafeActivity) : Fragment(), OnMapReadyCallback,Overlay.OnClickListener {
 
     private lateinit var mapView: MapView
+    private lateinit var infoWindowList: ArrayList<InfoWindow>
+    private lateinit var infoWindow:InfoWindow
+    private val markerArray: ArrayList<Marker> = ArrayList()
 
     override fun onMapReady(p0: NaverMap) {
         Log.d("LIFECYCLE", "MAPFRAGMENT onMapReady")
-        //p0.mapType = NaverMap.MapType.Hybrid
-        val markerArray:ArrayList<Marker> = ArrayList()
+        p0.mapType = NaverMap.MapType.Basic
+
+        var address:String?
+        var marker=Marker()
+        infoWindow= InfoWindow()
+        infoWindowList=ArrayList<InfoWindow>()
 
         for (i in 0 until cafeActivity.cafeList.size) {
-            val x= cafeActivity.cafeList[i].latitude?.toDouble()
-            val y= cafeActivity.cafeList[i].longitude?.toDouble()
-            if(x!=null&&y!=null){
-                markerArray.add(Marker(LatLng(x,y)))
-                markerArray[i].map=p0
-            }
-            else{
+            //infoWindowList.add(InfoWindow())//새로
+            val x = cafeActivity.cafeList[i].latitude?.toDouble()
+            val y = cafeActivity.cafeList[i].longitude?.toDouble()
+            address=cafeActivity.cafeList[i].BASS_ADRES_CN.toString()
+            if (x != null && y != null) {
+                markerArray.add(Marker(LatLng(x, y)))
+                markerArray[i].map = p0
+            } else {
                 markerArray.add(Marker())
-                markerArray[i].map=null
+                markerArray[i].map = null
             }
-        }
-        /*val marker=Marker()
-        marker.position = LatLng(
-            cafeActivity.cafeList[0].latitude!!.toDouble(),
-            cafeActivity.cafeList[0].longitude!!.toDouble()
-        )
-        marker.map = p0
+            markerArray[i].tag=address
 
-        val cameraUpdate = CameraUpdate.scrollAndZoomTo(
-            LatLng(
-                cafeActivity.cafeList[0].latitude!!.toDouble(),
-                cafeActivity.cafeList[0].longitude!!.toDouble()
-            ), 10.0
+            infoWindow.adapter=object :InfoWindow.DefaultTextAdapter(cafeActivity){
+                override fun getText(p0: InfoWindow): CharSequence {
+                    return markerArray[i].tag as CharSequence
+                }
+            }
+            val listener=  Overlay.OnClickListener {
+                val marker=it as Marker
+                if(marker.infoWindow==null)
+                    infoWindow.open(marker)
+                else
+                    infoWindow.close()
+                true
+            }
+            markerArray[i].onClickListener = listener
+            Log.d("markertag",markerArray[i].tag.toString())
+        }
+        val initCameraPosition = CameraUpdate.scrollAndZoomTo(
+            LatLng(37.569425, 126.977945), 10.0
         )
-        p0.moveCamera(cameraUpdate)*/
+        p0.moveCamera(initCameraPosition)
+
+
+    }
+
+
+    override fun onClick(p0: Overlay): Boolean {
+        val marker=p0 as Marker
+        infoWindow.open(marker)
+        Log.d("markertag","click")
+        return true
     }
 
     override fun onCreateView(
@@ -65,19 +96,12 @@ class MapFragment(private val cafeActivity: CafeActivity) : Fragment(), OnMapRea
         mapView.onCreate(savedInstanceState)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.d("LIFECYCLE", "MAPFRAGMENT onActivityCreated")
-        //val sendMsg=arguments?.getString("jebalttt")
-        //Log.d("geocoding",sendMsg)
-        for (i in 0 until cafeActivity.cafeList.size)
-            Log.d(
-                "geocoding",
-                "뭐야 : " + cafeActivity.cafeList.size.toString() + cafeActivity.cafeList[i].longitude.toString()
-            )
         super.onActivityCreated(savedInstanceState)
         mapView.getMapAsync(this)
     }
-
 
     override fun onStart() {
         super.onStart()

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.replace
 import com.example.mystartup.R
+import com.naver.maps.map.overlay.Overlay
 import kotlinx.android.synthetic.main.activity_cafe.*
 
 class CafeActivity : AppCompatActivity() {
@@ -26,6 +27,7 @@ class CafeActivity : AppCompatActivity() {
         val cafeAsyncTask = CafeAsyncTask(this@CafeActivity,mapFragment)
         cafeAsyncTask.execute()
     }
+
 
     /*fun sendCafeList() {
         //Activity에서 Fragment로 보내는 구문
