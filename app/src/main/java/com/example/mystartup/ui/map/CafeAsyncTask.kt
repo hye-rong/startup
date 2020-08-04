@@ -15,11 +15,12 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class CafeAsyncTask(
-    val cafeActivity: CafeActivity
+    private val cafeActivity: CafeActivity,
+    private val mapFragment: MapFragment
 ) : AsyncTask<Any?, Any?, Any?>() {
     private lateinit var buffer: String
     //private val cafeList = ArrayList<CafeInfoServer>()
-    lateinit var geoCoingAsync: GeoCoingAsync
+    private lateinit var geoCoingAsync: GeoCoingAsync
 
     override fun onPostExecute(result: Any?) {
         Log.d("LIFECYCLE", "CafeAsyncTask onPostExecute")
@@ -73,7 +74,8 @@ class CafeAsyncTask(
                 geoCoingAsync = GeoCoingAsync(
                     cafeActivity,
                     i,
-                    realArray.length()
+                    realArray.length(),
+                    mapFragment
                 )
                 geoCoingAsync.execute()
             }

@@ -19,9 +19,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class GeoCoingAsync(
-    val cafeActivity: CafeActivity,
-    var index: Int,
-    var listSize: Int
+    private val cafeActivity: CafeActivity,
+    private var index: Int,
+    private var listSize: Int,
+    private val mapFragment: MapFragment
 ) :
     AsyncTask<Any?, Any?, Any?>() {
 
@@ -101,7 +102,7 @@ class GeoCoingAsync(
             cafeActivity.sendCafeList()*/
             //cafeActivity.sendCafeList()
             val fragmentTransaction=cafeActivity.fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.map_fragment,cafeActivity.mapFragment).commit()
+            fragmentTransaction.replace(R.id.map_fragment,mapFragment).commit()
         } else {
             return
         }

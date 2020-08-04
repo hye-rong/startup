@@ -11,9 +11,9 @@ import androidx.fragment.app.replace
 import com.example.mystartup.R
 import kotlinx.android.synthetic.main.activity_cafe.*
 
-open class CafeActivity : AppCompatActivity() {
+class CafeActivity : AppCompatActivity() {
     val cafeList = ArrayList<CafeInfoServer>()
-    val mapFragment = MapFragment(this)
+    private val mapFragment = MapFragment(this@CafeActivity)
     val fragmentManager = supportFragmentManager
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +23,8 @@ open class CafeActivity : AppCompatActivity() {
 
         Log.d("LIFECYCLE", "CafeActivity onCreate")
 
-
-        val cafeAsyncTask = CafeAsyncTask(this@CafeActivity)
+        val cafeAsyncTask = CafeAsyncTask(this@CafeActivity,mapFragment)
         cafeAsyncTask.execute()
-        mapFragment.jodaehyeon()
     }
 
     /*fun sendCafeList() {
