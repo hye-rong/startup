@@ -8,9 +8,16 @@
     tools:context=".ui.home.StartupActivity">
     <TextView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="창업 관련 정보"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:padding="15dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="띄우는 작업 아직 안함"
-        android:textSize="30dp"
-        />
+        android:id="@+id/startup_recycler_view"/>
 
 </LinearLayout>

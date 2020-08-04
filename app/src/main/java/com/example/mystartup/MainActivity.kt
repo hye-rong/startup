@@ -10,12 +10,12 @@ import com.example.mystartup.ui.educate_money.MoneyActivity
 import com.example.mystartup.ui.favorite.FavoriteActivity
 import com.example.mystartup.ui.home.HomeAsyncTask
 import com.example.mystartup.ui.home.StartupActivity
-import com.example.mystartup.ui.home.StartupInfo
 import com.example.mystartup.ui.job.JobActivity
 import com.example.mystartup.ui.map.CafeActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_toolbar.*
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,16 +30,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
 
+        val asyncTask = HomeAsyncTask(this@MainActivity)
+        asyncTask.execute()
+
         //set toolbar
         setSupportActionBar(toolbar) // 툴바를 액티비티의 앱바로 지정
         supportActionBar?.setDisplayHomeAsUpEnabled(false) // 드로어를 꺼낼 홈 버튼 활성화
         supportActionBar?.setDisplayShowTitleEnabled(false) // 툴바에 타이틀 안보이게
 
 
-
         //****************homefragment code******************//
-        val asyncTask = HomeAsyncTask(this)
-        asyncTask.execute()
+
 
         main_place.setOnClickListener {
             intent = Intent(this, CafeActivity::class.java)
@@ -116,6 +117,4 @@ class MainActivity : AppCompatActivity() {
 
 
 class StartupInfo(var areaName:String, var detailUrl:String, var endDate:String,
-                  var postTarget:String, var supportType:String, var title:String){
-
-}
+                  var postTarget:String, var supportType:String, var title:String):Serializable

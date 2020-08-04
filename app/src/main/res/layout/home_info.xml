@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pager_title"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:textStyle="bold"/>
     <TextView
@@ -25,14 +25,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/pager_target"
         android:textColor="@color/white"
-        android:textSize="13dp"
+        android:textSize="15dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/pager_end_date"
         android:textColor="@color/white"
-        android:textSize="13dp"
+        android:textSize="15dp"
         />
 
 
